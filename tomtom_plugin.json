@@ -1,0 +1,14 @@
+{
+    "Keys": ["tomtom"],
+    "Provider": "tomtom",
+    "Version": 100,
+    "Experimental": false,
+    "Features": [
+        "OnlineGeocodingFeature",
+        "ReverseGeocodingFeature",
+        "OnlineRoutingFeature",
+        "AlternativeRoutesFeature",
+        "OnlinePlacesFeature",
+        "OnlineMappingFeature"
+    ]
+}
