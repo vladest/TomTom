@@ -7,45 +7,6 @@
 #include <QtLocation/QGeoRouteSegment>
 #include <QtLocation/QGeoManeuver>
 
-static QList<QGeoCoordinate> parsePolyline(const QByteArray &data)
-{
-    QList<QGeoCoordinate> path;
-
-    bool parsingLatitude = true;
-
-    int shift = 0;
-    int value = 0;
-
-    QGeoCoordinate coord(0, 0);
-
-    for (int i = 0; i < data.length(); ++i) {
-        unsigned char c = data.at(i) - 63;
-
-        value |= (c & 0x1f) << shift;
-        shift += 5;
-
-        // another chunk
-        if (c & 0x20)
-            continue;
-
-        int diff = (value & 1) ? ~(value >> 1) : (value >> 1);
-
-        if (parsingLatitude) {
-            coord.setLatitude(coord.latitude() + (double)diff/1e5);
-        } else {
-            coord.setLongitude(coord.longitude() + (double)diff/1e5);
-            path.append(coord);
-        }
-
-        parsingLatitude = !parsingLatitude;
-
-        value = 0;
-        shift = 0;
-    }
-
-    return path;
-}
-
 static QGeoCoordinate constructCoordiante(const QJsonObject &jsonCoord) {
     QGeoCoordinate coord(0,0);
     coord.setLatitude(jsonCoord.value(QStringLiteral("latitude")).toDouble());

@@ -30,6 +30,8 @@ private:
     QNetworkAccessManager *m_networkManager;
     QByteArray m_userAgent;
     QString m_urlPrefix;
+    QString m_apiKey;
+    QString m_versionNumber;
 };
 
 #endif // QGEOCODINGMANAGERENGINEOrs_H
